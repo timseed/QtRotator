@@ -16,8 +16,8 @@
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>-10</x>
-     <y>0</y>
+     <x>-20</x>
+     <y>20</y>
      <width>301</width>
      <height>211</height>
     </rect>
@@ -93,7 +93,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="rl_SP">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -106,7 +106,7 @@
      <string>SP</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="rl_LP">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -155,7 +155,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="cust_SP">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -168,7 +168,7 @@
      <string>SP</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="cust_LP">
     <property name="geometry">
      <rect>
       <x>170</x>
