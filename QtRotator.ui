@@ -16,7 +16,7 @@
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>-20</x>
+     <x>-10</x>
      <y>20</y>
      <width>301</width>
      <height>211</height>
@@ -51,7 +51,7 @@
      <string>RumLogNG</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="lbHeading">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -62,6 +62,12 @@
     </property>
     <property name="autoFillBackground">
      <bool>true</bool>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="lineWidth">
+     <number>2</number>
     </property>
     <property name="text">
      <string/>
@@ -132,7 +138,7 @@
      <string>Custom Heading</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="custHead">
     <property name="geometry">
      <rect>
       <x>170</x>

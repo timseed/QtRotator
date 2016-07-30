@@ -15,9 +15,9 @@ class RumLogNg(object):
             proc = subprocess.Popen(['osascript', '-'],
                                 stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE)
-            stdout_output = proc.communicate(self.script.encode('utf-8'))[0]
+            stdout_output = proc.communicate(self.heading_script.encode('utf-8'))[0]
             heading=int(stdout_output)
-            print(str.format('Heading is {}  Object Type is  {}',heading,type(proc)))
+            #print(str.format('Heading is {}  Object Type is  {}',heading,type(proc)))
             return heading
         except Exception as err:
             print(str.format('Error Occurred in RumLogNG error {}',str(err)))
