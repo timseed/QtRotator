@@ -7,12 +7,22 @@ class PyRotator(Ui_Form):
 
     def __init__(self, *args, **kwargs):
         super(Ui_Form, self).__init__(*args, **kwargs)
+        self.timer=QtCore.QTimer()
 
     def mysetup(self):
         self.cust_SP.clicked.connect(lambda: self.MyClicked("cust_SP"))
         self.cust_LP.clicked.connect(lambda: self.MyClicked("cust_LP"))
         self.rl_LP.clicked.connect(lambda: self.MyClicked("rl_LP"))
         self.rl_SP.clicked.connect(lambda: self.MyClicked("rl_SP"))
+        self.setup_timer()
+
+
+    def setup_timer(self):
+        self.timer.timeout.connect(self.OnTimer)
+        self.timer.start(1000)
+
+    def OnTimer(self):
+        print("Timer has gone off")
 
     def MyClicked(self,btname=""):
         print(str.format('Button {} was clicked',btname))
