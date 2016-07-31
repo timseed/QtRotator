@@ -31,18 +31,22 @@ class PyRotator(Ui_Form):
 
     def OnTimer(self):
         print("Timer has gone off")
-        heading = self.rl.get_heading()
-        if self.firstTime:
-            self.oldHeading=self.oldHeading
-            self.firstTime=False
-        else:
-            if heading != -1:
-                print(str.format("Heading is {}", str(heading)))
-                self.lbHeading.setText(str(heading))
-                self.Heading=heading
+        if self.autoRun.isChecked():
+            heading = self.rl.get_heading()
+            if self.firstTime:
+                self.oldHeading=self.oldHeading
+                self.firstTime=False
             else:
-                print("Bad Heading ? Is the prograsm running ??")
+                if heading != -1:
+                    print(str.format("Heading is {}", str(heading)))
+                    self.lbHeading.setText(str(heading))
+                    self.Heading=heading
 
+
+                else:
+                    print("Bad Heading ? Is the prograsm running ??")
+        else:
+            print("Not into Auto Mode only looking for Custom Headings")
 
     def TurnTo(self, ShortPath, Logger):
 

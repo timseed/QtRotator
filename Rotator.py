@@ -67,6 +67,9 @@ class Ui_Form(object):
         self.line_4.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_4.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_4.setObjectName("line_4")
+        self.autoRun = QtWidgets.QCheckBox(self.widget)
+        self.autoRun.setGeometry(QtCore.QRect(200, 10, 86, 20))
+        self.autoRun.setObjectName("autoRun")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -81,6 +84,7 @@ class Ui_Form(object):
         self.label_4.setText(_translate("Form", "Custom Heading"))
         self.cust_SP.setText(_translate("Form", "SP"))
         self.cust_LP.setText(_translate("Form", "LP"))
+        self.autoRun.setText(_translate("Form", "CheckBox"))
 
 
 if __name__ == "__main__":
