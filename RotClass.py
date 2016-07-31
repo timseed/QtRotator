@@ -5,8 +5,16 @@ from ham_dev.rotator import spid3,spid_serial3
 from RumLogNG import RumLogNg
 
 class PyRotator(Ui_Form):
+    '''
+    Python Gui Rotator - With AppleScript to communicate to RumLogNG
+    '''
 
     def __init__(self, *args, **kwargs):
+        '''
+        PyRotator Constructor
+        :param args:
+        :param kwargs:
+        '''
         super(Ui_Form, self).__init__(*args, **kwargs)
         self.CheckHeading=1*1000   #in Milli Secs
         self.timer=QtCore.QTimer()
@@ -18,6 +26,10 @@ class PyRotator(Ui_Form):
 
 
     def mysetup(self):
+        '''
+        Must be called after Init !!
+        :return:
+        '''
         self.cust_SP.clicked.connect(lambda: self.TurnTo(ShortPath=True, Logger=False))
         self.cust_LP.clicked.connect(lambda: self.TurnTo(ShortPath=False, Logger=False))
         self.rl_LP.clicked.connect(lambda: self.TurnTo(ShortPath=False, Logger=True))
@@ -28,10 +40,18 @@ class PyRotator(Ui_Form):
 
 
     def setup_timer(self):
+        '''
+        Setup a QT Timer to poll the application (If checked)
+        :return:
+        '''
         self.timer.timeout.connect(self.OnTimer)
         self.timer.start(self.CheckHeading)
 
     def OnTimer(self):
+        '''
+        What do do when the timer does off
+        :return:
+        '''
         print("Timer has gone off")
         if self.autoRun.isChecked():
             heading = self.rl.get_heading()
@@ -51,7 +71,12 @@ class PyRotator(Ui_Form):
             print("Not into Auto Mode only looking for Custom Headings")
 
     def TurnTo(self, ShortPath, Logger):
-
+        '''
+        Turn to a Specified Location
+        :param ShortPath: Use the SP or LP
+        :param Logger: User Logger or Custom Value
+        :return: None
+        '''
         print("Turn too is called ")
         if Logger:
             if ShortPath:
@@ -60,7 +85,7 @@ class PyRotator(Ui_Form):
             else:
                 #Need to write
                 print("Turn too Logger LongPath")
-                self.RAK.moveto(self.Heading)
+                self.RAK.moveto(self.Calc_LP(self.Heading))
         else:
             try:
                 cust_heading=int(self.custHead.text())
@@ -69,12 +94,33 @@ class PyRotator(Ui_Form):
                     self.RAK.moveto(cust_heading)
                 else:
                     #Need to write
-                    self.RAK.moveto(cust_heading)
+                    self.RAK.moveto(self.Calc_LP(cust_heading))
                 print(str.format("Moving to Cusom heading {}",cust_heading))
             except Exception as err:
                 print(str.format('Exception in custom heading {}',str(err)))
 
+
+    def Calc_LP(self,heading):
+        '''
+        Calculate the LongParh from a Given Short Part Heading
+
+        :param heading:
+        :return: long path as int scale 0-360
+        '''
+
+        heading = heading - 180
+        if heading < 0:
+            heading = heading +360
+        else:
+            heading = heading % 360
+        return heading
+
     def Turn(self,Offset):
+        '''
+        Turn the Rotator by a specified DELTA amount
+        :param Offset: in degrees
+        :return: Nothing
+        '''
         current=self.RAK.status()
         try:
             current=int(current)
@@ -85,8 +131,8 @@ class PyRotator(Ui_Form):
                 current=current%360
             self.RAK.moveto(current)
             self.custHead.setText(str(current))
-        except:
-            print("Error getting heading from SPID")
+        except Exception as err:
+            print(str.format("Error getting heading from SPID: Error {}",str(err)))
 
 
 if __name__ == "__main__":
