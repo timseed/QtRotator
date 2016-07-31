@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from Rotator import Ui_Form
+from QtRotator import Ui_Form
 from PyQt5 import QtCore, QtWidgets, QtGui
 from ham_dev.rotator import spid3,spid_serial3
 from RumLogNG import RumLogNg
@@ -22,6 +22,8 @@ class PyRotator(Ui_Form):
         self.cust_LP.clicked.connect(lambda: self.TurnTo(ShortPath=False, Logger=False))
         self.rl_LP.clicked.connect(lambda: self.TurnTo(ShortPath=False, Logger=True))
         self.rl_SP.clicked.connect(lambda: self.TurnTo(ShortPath=True, Logger=True))
+        self.left.clicked.connect(lambda: self.Turn(Offset=-20))
+        self.right.clicked.connect(lambda: self.Turn(Offset=20))
         self.setup_timer()
 
 
@@ -71,6 +73,20 @@ class PyRotator(Ui_Form):
                 print(str.format("Moving to Cusom heading {}",cust_heading))
             except Exception as err:
                 print(str.format('Exception in custom heading {}',str(err)))
+
+    def Turn(self,Offset):
+        current=self.RAK.status()
+        try:
+            current=int(current)
+            current=current+Offset
+            if current < 0:
+                current += 360
+            if current > 360:
+                current=current%360
+            self.RAK.moveto(current)
+            self.custHead.setText(str(current))
+        except:
+            print("Error getting heading from SPID")
 
 
 if __name__ == "__main__":
